@@ -1,5 +1,5 @@
 function isValueNumber(val){
-  return (/(^-?[0-9]+\.{1}\d+$) | (^-?[1-9][0-9]*$) | (^-?0{1}$)/).test(val+'');
+  return (/(^-?[0-9]+\.{1}\d+$)|(^-?[1-9][0-9]*$)|(^-?0{1}$)/).test(val+'');
 }
 
 Vue.component('input-number',{
@@ -11,6 +11,10 @@ Vue.component('input-number',{
   </div>
   `,
   props:{
+    step:{
+      type:Number,
+      default:1,
+    },
     min:{
       type:Number,
       default:Infinity,
@@ -44,14 +48,14 @@ Vue.component('input-number',{
       if(val >= this.max){
         return this.max;
       }
-      this.currentValue+=1;
+      this.currentValue+=this.step;
     },
     handleDown:function(){
       var val = this.currentValue;
       if(val <= this.min){
         return this.min;
       }
-      this.currentValue-=1;
+      this.currentValue-=this.step;
     },
     handeleChange:function(event){
       var val = event.target.value.trim();
